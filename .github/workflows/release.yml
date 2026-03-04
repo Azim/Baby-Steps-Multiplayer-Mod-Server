@@ -91,6 +91,7 @@ jobs:
         zip -r ../../release_assets/BabyStepsMultiplayerServer-linux.zip .
         cd ../windows
         zip -r ../../release_assets/BabyStepsMultiplayerServer-windows.zip .
+        cd ..
         ls -la release_assets
 
     - name: Create GitHub Release
