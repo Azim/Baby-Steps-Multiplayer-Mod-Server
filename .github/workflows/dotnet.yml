@@ -1,0 +1,69 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+    
+permissions:
+  contents: read
+  packages: write
+  
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: BabyStepsMultiplayerServer-linux
+        path: BabyStepsMultiplayerServer/bin/Debug/net8.0/
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: BabyStepsMultiplayerServer-windows
+        path: BabyStepsMultiplayerServer/bin/Debug/net8.0/
+
+  docker:
+    name: Build and push Docker image
+    runs-on: ubuntu-latest
+    needs: build-linux
+    steps:
+    - uses: actions/checkout@v4
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build and push image to GHCR
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        file: docker/Dockerfile
+        push: true
+        #FIXME: update username to caleb. needs to be lowercase
+        tags: |
+          ghcr.io/azim/baby-steps-server:latest 
+          ghcr.io/azim/baby-steps-server:${{ github.sha }}
