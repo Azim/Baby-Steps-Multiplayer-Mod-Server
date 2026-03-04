@@ -82,7 +82,6 @@ jobs:
       with:
         name: BabyStepsMultiplayerServer-windows
         path: ./artifacts/windows
-
     - name: Package artifacts
       run: |
         mkdir -p release_assets
@@ -92,7 +91,6 @@ jobs:
         zip -r ../../release_assets/BabyStepsMultiplayerServer-windows.zip .
         cd ../..
         ls -la release_assets
-
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
       with:
@@ -105,14 +103,13 @@ jobs:
         files: |
           release_assets/BabyStepsMultiplayerServer-linux.zip
           release_assets/BabyStepsMultiplayerServer-windows.zip
-
+    - uses: actions/checkout@v4
     - name: Log in to GHCR
       uses: docker/login-action@v2
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Build and push image to GHCR
       uses: docker/build-push-action@v4
       with:
