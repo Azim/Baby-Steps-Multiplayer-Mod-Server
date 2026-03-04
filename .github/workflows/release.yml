@@ -77,7 +77,6 @@ jobs:
       with:
         name: BabyStepsMultiplayerServer-linux
         path: ./artifacts/linux
-
     - name: Download Windows artifact
       uses: actions/download-artifact@v4
       with:
@@ -91,7 +90,7 @@ jobs:
         zip -r ../../release_assets/BabyStepsMultiplayerServer-linux.zip .
         cd ../windows
         zip -r ../../release_assets/BabyStepsMultiplayerServer-windows.zip .
-        cd ..
+        cd ../..
         ls -la release_assets
 
     - name: Create GitHub Release
