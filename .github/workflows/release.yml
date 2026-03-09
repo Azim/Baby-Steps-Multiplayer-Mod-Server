@@ -117,5 +117,5 @@ jobs:
         file: docker/Dockerfile
         push: true
         tags: |
-          ghcr.io/caleborchard/baby-steps-server:${{ github.event.inputs.release_tag }}
-          ghcr.io/caleborchard/baby-steps-server:latest
+          ghcr.io/azim/baby-steps-server:${{ github.event.inputs.release_tag }}
+          ghcr.io/azim/baby-steps-server:latest
