@@ -13,7 +13,7 @@ FROM mcr.microsoft.com/dotnet/runtime:8.0 AS runtime
 WORKDIR /app
 
 COPY --from=build /app/publish ./
-COPY entrypoint.sh /app/entrypoint.sh
+COPY docker-entrypoint.sh /entrypoint.sh
 
 EXPOSE 7777
 
@@ -21,6 +21,6 @@ LABEL org.opencontainers.image.description A headless C# server for the Baby Ste
 
 ENV DOTNET_ENVIRONMENT=Production
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["dotnet", "BabyStepsMultiplayerServer.dll"]
