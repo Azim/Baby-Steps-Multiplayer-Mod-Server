@@ -1,6 +1,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
+COPY entrypoint.sh /entrypoint.sh
+
 COPY ../BabyStepsMultiplayerServer/* .
 RUN dotnet restore BabyStepsMultiplayerServer.csproj
 
