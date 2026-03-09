@@ -21,6 +21,7 @@ LABEL org.opencontainers.image.description A headless C# server for the Baby Ste
 
 ENV DOTNET_ENVIRONMENT=Production
 
+RUN chmod +x /app/entrypoint.sh
 ENTRYPOINT ["/app/entrypoint.sh"]
 
 CMD ["dotnet", "BabyStepsMultiplayerServer.dll"]
