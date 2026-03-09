@@ -16,8 +16,6 @@ WORKDIR /app
 
 COPY --from=build /app/publish ./
 
-COPY entrypoint.sh /entrypoint.sh
-
 EXPOSE 7777
 
 LABEL org.opencontainers.image.description A headless C# server for the Baby Steps Multiplayer Mod. 
