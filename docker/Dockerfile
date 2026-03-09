@@ -14,10 +14,14 @@ WORKDIR /app
 
 COPY --from=build /app/publish ./
 
+COPY entrypoint.sh /entrypoint.sh
+
 EXPOSE 7777
 
 LABEL org.opencontainers.image.description A headless C# server for the Baby Steps Multiplayer Mod. 
 
 ENV DOTNET_ENVIRONMENT=Production
 
-ENTRYPOINT ["dotnet", "BabyStepsMultiplayerServer.dll"]
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["dotnet", "BabyStepsMultiplayerServer.dll"]
